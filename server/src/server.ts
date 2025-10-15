@@ -6,14 +6,13 @@ const MAX_RETRIES = 5;
 const RETRY_BASE_DELAY = 1000; 
 
 const server = http.createServer((req, res) => {
-    const urlPath = new URL(req.url!, `http://localhost`).pathname;
     console.log(`${req.method} ${req.url}`);
 
     const isValidRequest = (req.method === 'GET') && (
-        urlPath === '/posts' ||
-        urlPath.startsWith('/posts/') ||
-        urlPath === '/users' ||
-        urlPath.startsWith('/users/')
+        req.url === '/posts' ||
+        req.url!.startsWith('/posts/') ||
+        req.url === '/users' ||
+        req.url!.startsWith('/users/')
     );
 
     if (!isValidRequest) {
